@@ -1,13 +1,13 @@
 import os
 import asyncio
-from telegram import Update, ForceReply
+from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters, ConversationHandler
-import aiohttp
+import httpx
 from utils import find_rrb_result
 
-# Environment variables
-BOT_TOKEN = os.environ.get("AAGr1DPdJVLnsLK5hLNsNKlzF8AdEyzxgbc")
-# States for ConversationHandler
+BOT_TOKEN = os.environ.get("8640224009:AAGr1DPdJVLnsLK5hLNsNKlzF8AdEyzxgbc")
+
+# Conversation states
 EXAM, YEAR = range(2)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -33,7 +33,7 @@ async def year_choice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data['year'] = year
     exam = context.user_data['exam']
 
-    async with aiohttp.ClientSession() as session:
+    async with httpx.AsyncClient() as session:
         result = await find_rrb_result(session, exam, year)
         if result:
             await update.message.reply_text(
