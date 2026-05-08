@@ -1,4 +1,4 @@
 python-telegram-bot==20.5
-beautifulsoup4==4.12.2
+beautifulsoup4
 httpx==0.24.1
 googlesearch-python==1.0.0
